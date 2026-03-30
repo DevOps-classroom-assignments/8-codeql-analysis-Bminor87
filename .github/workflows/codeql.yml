@@ -53,10 +53,16 @@ jobs:
         run: docker run -dp 8080:8080 --name go-web-server go-web-server
 
       - name: Wait for server to start
-        run: sleep 5
+        run: sleep 25
+
+      - name: Show running containers
+        run: docker ps -a
+
+      - name: Show container logs
+        run: docker logs go-web-server
 
       - name: Test the endpoint
-        run: curl "http://localhost:8080/readfile?file=hello.txt"
+        run: curl "http://localhost:8080/readfile?file=safe-files/hello.txt"
 
       - name: Stop Docker container
         run: docker stop go-web-server
